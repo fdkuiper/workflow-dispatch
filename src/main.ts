@@ -73,13 +73,12 @@ async function run(): Promise<void> {
     core.info(`🔎 Found workflow, id: ${foundWorkflow.id}, name: ${foundWorkflow.name}, path: ${foundWorkflow.path}`)
 
     // Call workflow_dispatch API
-    core.info('🚀 Calling GitHub API to dispatch workflow...')
+    core.info('🚀 Calling Gitea API to dispatch workflow...')
     const dispatchResp = await octokit.request(
       `POST /repos/${owner}/${repo}/actions/workflows/${foundWorkflow.id}/dispatches?return_run_details=true`,
       {
         ref: ref,
         inputs: inputs,
-        return_run_details: true,
       },
     )
 
