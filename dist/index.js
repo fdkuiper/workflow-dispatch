@@ -23619,13 +23619,12 @@ async function run() {
     });
     if (!foundWorkflow) throw new Error(`Unable to find workflow '${workflowRef}' in ${owner}/${repo} \u{1F625}`);
     info(`\u{1F50E} Found workflow, id: ${foundWorkflow.id}, name: ${foundWorkflow.name}, path: ${foundWorkflow.path}`);
-    info("\u{1F680} Calling GitHub API to dispatch workflow...");
+    info("\u{1F680} Calling Gitea API to dispatch workflow...");
     const dispatchResp = await octokit.request(
-      `POST /repos/${owner}/${repo}/actions/workflows/${foundWorkflow.id}/dispatches`,
+      `POST /repos/${owner}/${repo}/actions/workflows/${foundWorkflow.id}/dispatches?return_run_details=true`,
       {
         ref,
-        inputs,
-        return_run_details: true
+        inputs
       }
     );
     info(`\u{1F3C6} API response status: ${dispatchResp.status}`);
